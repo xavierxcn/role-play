@@ -30,3 +30,9 @@ class Player:
 
     def listen(self, message: str) -> str:
         self.messages.append({"role": "user", "content": message})
+
+    def save(self) -> None:
+        with open(f"{self.name}.txt", 'w') as f:
+            f.write(self.personality)
+            for msg in self.messages:
+                f.write(f"\n{msg['role']}：{msg['content']}")

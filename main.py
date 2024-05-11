@@ -19,6 +19,10 @@ def main():
     player1.talk_to(player2)
     player2.talk_to(player1)
 
+    start_word = "你可后悔为我挡下诛仙剑？"
+
+    player1.messages.append({"role": "assistant", "content": start_word})
+    print(f"{player1.name}: {start_word}")
     player2.listen("你可后悔为我挡下诛仙剑？")
 
     # 交替对话
@@ -35,6 +39,8 @@ def main():
         talker.messages.append({"role": "assistant", "content": words})
         times += 1
         print()
+    player1.save()
+    player2.save()
 
 
 
