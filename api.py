@@ -99,7 +99,7 @@ def get_chatglm_response_via_sdk(messages: TextMsgList) -> Generator[str, None, 
     verify_api_key_not_empty()
     client = ZhipuAI(api_key=config.zhipuai_api_key) # 请填写您自己的APIKey
     response = client.chat.completions.create(
-        model="glm-3-turbo",  # 填写需要调用的模型名称
+        model="glm-4",  # 填写需要调用的模型名称
         messages=messages,
         stream=True,
     )
@@ -107,11 +107,11 @@ def get_chatglm_response_via_sdk(messages: TextMsgList) -> Generator[str, None, 
         yield chunk.choices[0].delta.content
 
 
-def generate_role_appearance(role_profile: str) -> Generator[str, None, None]:
+def generate_role_appearance(name: str, role_profile: str) -> Generator[str, None, None]:
     """ 用chatglm生成角色的外貌描写 """
     
     instruction = f"""
-请从下列文本中，抽取人物的外貌描写。若文本中不包含外貌描写，请你推测人物的性别、年龄，并生成一段外貌描写。要求：
+请从下列文本中，抽取其中的人物{name}的外貌描写和性格特征。若文本中不包含{name}的外貌描写，请你推测人物的性别、年龄，并生成一段外貌描写以及性格特征。要求：
 1. 只生成外貌描写，不要生成任何多余的内容。
 2. 外貌描写不能包含敏感词，人物形象需得体。
 3. 尽量用短语描写，而不是完整的句子。

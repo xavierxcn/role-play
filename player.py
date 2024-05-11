@@ -4,7 +4,13 @@ import api
 
 
 class Player:
-    def __init__(self, name: str, personality: str):
+    def __init__(self, name: str, role_profile: str):
+        self.name = name
+        personality = ""
+        for n in api.generate_role_appearance(name, role_profile):
+            print(n, end='')
+            personality += n
+        print()
         self.messages = []
         self.character_meta = {
             "user_info": "",
